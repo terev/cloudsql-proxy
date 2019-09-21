@@ -13,8 +13,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag nullable/cloudsql-proxy:$GITHUB_SHA
     - name: Push the image
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-          name: nullable/cloudsql-proxy:$GITHUB_SHA
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      run: |
+        echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        docker push nullable/cloudsql-proxy:$GITHUB_SHA
+        docker logout
