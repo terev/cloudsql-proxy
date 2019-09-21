@@ -11,11 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag cloudsql-proxy:$GITHUB_SHA
+      run: docker build . --file Dockerfile --tag nullable/cloudsql-proxy:$GITHUB_SHA
     - name: Push the image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-          name: terev/cloudsql-proxy:$GITHUB_SHA
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: docker.pkg.github.com
+          name: nullable/cloudsql-proxy:$GITHUB_SHA
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
